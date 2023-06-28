@@ -1,0 +1,12 @@
+name: 'OneSignal'
+type: module
+description: 'Integrates OneSignal, a push notification service.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'OneSignal'
+configure: onesignal.config_form
+
+# Information added by Drupal.org packaging script on 2022-04-23
+version: '8.x-2.2'
+project: 'onesignal'
+datestamp: 1650712776

@@ -1,0 +1,12 @@
+/**
+ * @file
+ * Use this CSS file to override base CSS rules
+ */
+
+/* Set default font weight to 300 for better typography in high-density screens */
+/*body {
+  font-weight: 300;
+}*/
+.node--view-mode-mt-hero h2.node__title {
+  font-size: 36px;
+}

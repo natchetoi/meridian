@@ -1,0 +1,45 @@
+name: Prepare Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      set_version:
+
+jobs:
+  write-version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Print version
+      run: echo "${{ github.event.inputs.set_version }}"
+    
+    - name: Modifiy the specific files using scripts
+      run: |
+        sed -i 's/@VERSION@/${{ github.event.inputs.set_version }}/g' *.info.yml
+        
+    - name: Setup git and commit tag
+      run: |
+          git config user.email "konispoliatisg@gmail.com"
+          git config user.name "Pusher CI"
+    
+    - name: Commit tag
+      run : |
+          git add *.info.yml
+          git commit -m "Capture version ${{ github.event.inputs.set_version }}"
+          git tag "${{ github.event.inputs.set_version }}"
+          git push origin --tag
+    
+    - name: Push release
+      run: git push origin master
+    
+    - name: Set placeholder version
+      run: |
+        sed -i 's/${{ github.event.inputs.set_version }}/@VERSION@/g' *.info.yml
+    
+    - name: Commit version placeholder
+      run: |
+          git add *.info.yml
+          git commit -m "Set placeholder version"
+          git push origin master
